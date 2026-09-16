@@ -4,27 +4,19 @@ An enterprise-grade document intelligence platform designed to extract, index, a
 
 ## System Architecture
 
-
-[Raw Financial PDF]
-│
-▼
-[Layout-Aware Parser] ──► Extracts Markdown Tables & Narrative Segments + Page Metadata
-│
-▼
-┌─────────────────────────────────────────────────────────────┐
-│                   Hybrid Retrieval Layer                    │
-│   ├── Sublinear TF-IDF Vector Space (Semantic Cosine)       │
-│   └── BM25 Lexical Keyword Search (Exact Term Frequency)    │
-└──────────────────────────────┬──────────────────────────────┘
-│
-▼
-[Reciprocal Rank Fusion (RRF)]
-│
-▼
-[Cross-Scoring Re-Ranking Layer] ──► Boosts dense numerical coverage
-│
-▼
-[Audited Grounded Synthesis] ──► Verified page citations & refusal guardrails
+```mermaid
+flowchart TD
+    A[Raw Financial PDF] --> B[Layout-Aware Parser]
+    B -->|Extracts Markdown Tables & Narrative + Metadata| C[Hybrid Retrieval Engine]
+    subgraph Hybrid Retrieval Layer
+        C --> D[Sublinear TF-IDF Vector Space]
+        C --> E[BM25 Lexical Keyword Index]
+    end
+    D --> F[Reciprocal Rank Fusion RRF]
+    E --> F
+    F --> G[Cross-Scoring Re-Ranking Layer]
+    G --> H[Audited Grounded Synthesis & Citations]
+```
 
 
 ## Quantitative Evaluation Benchmark
